@@ -29,6 +29,12 @@ class MerchantsController < ApplicationController
     @top_3_revenue_users = @merchant.top_3_revenue_users
   end
 
+  def export_existing
+  end
+
+  def export_new
+  end
+
   private
 
   def require_merchant
