@@ -9,30 +9,30 @@ describe 'As a Merchant visiting the dashboard' do
 
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
-      @user_3 = create(:user, name: "C User")
-      @user_4_inactive = create(:inactive_user, name: "D User")
+      @user_3_inactive = create(:inactive_user, name: "D User")
 
-      @item_1 = create(:item, user: @merchant_1)
-      @item_2 = create(:item, user: @merchant_2)
+      @item_1 = create(:item, user: @merchant_1, inventory: 100, price: 1)
+      @item_2 = create(:item, user: @merchant_2, inventory: 100, price: 1)
 
       @order_1 = create(:completed_order, user: @user_1)
       @order_2 = create(:completed_order, user: @user_2)
-      @order_3 = create(:completed_order, user: @user_3)
+      @order_3 = create(:completed_order, user: @user_3_inactive)
       @order_4_not_completed = create(:order, user: @user_1)
 
-      @order_item_1_not_fulfilled = create(:fulfilled_order_item, order: order, item: item_3, price: 1, quantity: 1)
-
-      @order_item_1 = create(:order_item, order: @order_1, item: @item_1, price: 1, quantity: 1)
-      @order_item_2 = create(:order_item, order: @order_2, item: @item_2, price: 1, quantity: 1)
+      @order_item_1a = create(:fulfilled_order_item, order: @order_1, item: @item_1, price: 1, quantity: 2)
+      @order_item_1b = create(:fulfilled_order_item, order: @order_1, item: @item_2, price: 1, quantity: 2)
+      @order_item_2a = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 1, quantity: 2)
+      @order_item_2b_not_fulfilled = create(:order_item, order: @order_2, item: @item_2, price: 1, quantity: 1)
+      @order_item_3 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 1, quantity: 2)
+      @order_item_4 = create(:fulfilled_order_item, order: @order_4_not_completed, item: @item_1, price: 1, quantity: 2)
 
     end
 
     describe 'with name, email, money spent with this merchant, money spent with all' do
       it 'for existing, not disabled users, who have ordered from current merchant' do
-
         data = @merchant.exiting_customer_csv
 
-        expect(data).to eq([@user_1, @user_2])
+        expect(data).to eq([@user_1, @user_2, @user_3])
         expect(data[0].my_revenue).to eq(100)
         expect(data[0].other_revenue).to eq(1000)
         expect(data[1].my_revenue).to eq(50)
@@ -60,6 +60,7 @@ end
 # make order items
 # make order items for a different merchant
 # Make sure it only counts an item if the status is fulfilled
+# works for a not completed order, if one order_item fulfilled and the other is not, for the same merchant
 
 
 # Downloadable Merchant User Lists
