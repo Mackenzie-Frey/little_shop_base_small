@@ -9,34 +9,47 @@ describe 'As a Merchant visiting the dashboard' do
 
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
-      @user_3_inactive = create(:inactive_user, name: "D User")
+      @user_3 = create(:user, name: "B User")
+      @user_4_inactive = create(:inactive_user, name: "C User")
 
-      @item_1 = create(:item, user: @merchant_1, inventory: 100, price: 1)
-      @item_2 = create(:item, user: @merchant_2, inventory: 100, price: 1)
+      @item_1 = create(:item, user: @merchant_1, inventory: 1000, price: 5)
+      @item_2 = create(:item, user: @merchant_2, inventory: 1000, price: 10)
 
       @order_1 = create(:completed_order, user: @user_1)
       @order_2 = create(:completed_order, user: @user_2)
-      @order_3 = create(:completed_order, user: @user_3_inactive)
+      @order_3 = create(:completed_order, user: @user_4_inactive)
       @order_4_not_completed = create(:order, user: @user_1)
+      @order_5 = create(:completed_order, user: @user_1)
+      @order_6 = create(:completed_order, user: @user_2)
 
-      @order_item_1a = create(:fulfilled_order_item, order: @order_1, item: @item_1, price: 1, quantity: 2)
-      @order_item_1b = create(:fulfilled_order_item, order: @order_1, item: @item_2, price: 1, quantity: 2)
-      @order_item_2a = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 1, quantity: 2)
-      @order_item_2b_not_fulfilled = create(:order_item, order: @order_2, item: @item_2, price: 1, quantity: 1)
-      @order_item_3 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 1, quantity: 2)
-      @order_item_4 = create(:fulfilled_order_item, order: @order_4_not_completed, item: @item_1, price: 1, quantity: 2)
-
+     @order_item_1a = create(:fulfilled_order_item, order: @order_1, item: @item_1, price: 5, quantity: 10)
+     @order_item_1b = create(:fulfilled_order_item, order: @order_5, item: @item_1, price: 5, quantity: 10)
+     @order_item_1c = create(:fulfilled_order_item, order: @order_1, item: @item_2, price: 10, quantity: 20)
+     @order_item_2a = create(:fulfilled_order_item, order: @order_6, item: @item_1, price: 5, quantity: 10)
+     @order_item_2b = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 5, quantity: 5)
+     @order_item_2c = create(:fulfilled_order_item, order: @order_6, item: @item_2, price: 5, quantity: 5)
+     @order_item_3a_not_fulfilled = create(:order_item, order: @order_2, item: @item_1, price: 10, quantity: 2)
+     @order_item_3b_not_fulfilled = create(:order_item, order: @order_2, item: @item_2, price: 10, quantity: 2)
+     @order_item_4 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 5, quantity: 2)
+     @order_item_5 = create(:fulfilled_order_item, order: @order_4_not_completed, item: @item_1, price: 5, quantity: 5)
     end
 
     describe 'with name, email, money spent with this merchant, money spent with all' do
       it 'for existing, not disabled users, who have ordered from current merchant' do
-        data = @merchant.exiting_customer_csv
+        data = @merchant_1.exiting_customer_csv
 
-        expect(data).to eq([@user_1, @user_2, @user_3])
-        expect(data[0].my_revenue).to eq(100)
-        expect(data[0].other_revenue).to eq(1000)
-        expect(data[1].my_revenue).to eq(50)
-        expect(data[1].other_revenue).to eq(500)
+        expect(data).to eq([@user_1, @user_2])
+
+        # user 1 my revenue 50 +50 +25 (orders 1, 4 and 5, for item 1)
+        expect(data[0].my_revenue).to eq(125)
+        # plus 200 to 125, (orders 1, 4 and 5, for item 1 & 2)
+        expect(data[0].all_revenue).to eq(325)
+
+        #orders 2 and 6, for item 1
+        expect(data[1].my_revenue).to eq(75)
+
+        # order 2 and 6 and for item 1 and 2
+        expect(data[1].all_revenue).to eq(100)
       end
     end
 
@@ -47,21 +60,6 @@ describe 'As a Merchant visiting the dashboard' do
    end
   end
 end
-
-# Current plan:
-# Do model testing for Active Record commands
-
-# Next step. Create the test data. -> calculate prices.
-# make sure works for multiple quantity
-# make disbaled user and test not getting it
-# make active user never bought anything from us, test.
-# make orders
-# make items
-# make order items
-# make order items for a different merchant
-# Make sure it only counts an item if the status is fulfilled
-# works for a not completed order, if one order_item fulfilled and the other is not, for the same merchant
-
 
 # Downloadable Merchant User Lists
 # Merchants can generate a list of email addresses for ALL EXISTING USERS who are
