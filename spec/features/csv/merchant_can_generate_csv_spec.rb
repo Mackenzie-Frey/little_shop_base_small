@@ -8,31 +8,25 @@ describe 'As a Merchant visiting the dashboard' do
     visit dashboard_path
 
     within '#existing-users-not-disabled-with-orders-from-merchant' do
-      expect(page).to have_button('Download CSV')
+
+      expect(page).to have_button('Download as CSV')
+      click_button 'Download as CSV'
+
+      expect(current_path).to eq(dashboard_csv_path)
     end
     within '#new-users-without-orders-from-merchant' do
-      expect(page).to have_button('Download CSV')
+
+      expect(page).to have_button('Download as CSV')
+      click_button 'Download as CSV'
+
     end
   end
+end
 
-  it 'outputs table' do
-    it 'with name, email, money spent with this merchant, money spent with all' do
-      it 'for existing, not disabled users, who have ordered from current merchant' do
-        merchant = create(:merchant)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+# Current plan:
+# 1. execute CSV download path - should there be 1 or two paths?
+# 2. Do model testing for Active Record commands
 
-      end
-    end
-    it 'with name, email, money spent with other merchants, # of total orders' do
-     it 'for all new users, without orders from current merchant' do
-       merchant = create(:merchant)
-       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
-
-     end
-    end
-  end
-
-#
 # Downloadable Merchant User Lists
 # Merchants can generate a list of email addresses for ALL EXISTING USERS who are
 # NOT DISABLED who have
