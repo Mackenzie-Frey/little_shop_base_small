@@ -113,6 +113,43 @@ class User < ApplicationRecord
       .limit(3)
   end
 
-  def existing_customer_csv
+# How to pass in which merchant we want. should it be my_existing_users(@merchant)
+# how to bring this all together with the my_revnue and the all_revenue methods to create a table to output to csv
+  def my_existing_users
+    binding.pry
+    User
+    .joins(:orders, :order_items)
+    # .joins(:items) ????
+    .where(role: "default")
+    .where(active: true)
+  #  get the order here
+    .where(:order_item.item.merchant_id: merchant_params(:id))
+    .where(:order_items.fulfilled: true) #("order_items.id = true")
+    .group(:name)
+    .order(name: :asc)
+
+  end
+
+
+
+
+
+
+  def my_revenue
+    #sum(:price/something like that)
+  end
+
+  def all_revenue
   end
 end
+
+
+# NOT DISABLED
+# >>>>>>>
+
+# ORDERED ITEMS from THIS MERCHANT in the past
+# only completed order_items
+# name
+# email address
+# money spent on your items
+# money spent on all merchants

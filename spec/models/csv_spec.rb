@@ -38,18 +38,18 @@ describe 'As a Merchant visiting the dashboard' do
       describe 'for existing, not disabled users, who have ordered from current merchant' do
 
         describe 'instance methods' do
-          it '.existing_customer.csv' do
-            merchant_1_data = @merchant_1.existing_customer_csv
+          it 'my_existing_users' do
+            merchant_1_data = @merchant_1.my_existing_users
 
             expect(merchant_1_data).to eq([@user_1, @user_2])
           end
 
           it '.my_revenue' do
-            merchant_1_data = @merchant_1.existing_customer_csv
+            merchant_1_data = @merchant_1.my_existing_users
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 
-            # user 1 my revenue 50 +50 +25 (orders 1, 4 and 5, for item 1)
+            # user 1 my revenue 50 + 50 + 25 (orders 1, 4 and 5, for item 1)
             expect(user_1.my_revenue).to eq(125)
 
             #orders 2 and 6, for item 1
@@ -57,7 +57,7 @@ describe 'As a Merchant visiting the dashboard' do
           end
 
           it '.all_revenue' do
-            merchant_1_data = @merchant_1.existing_customer_csv
+            merchant_1_data = @merchant_1.my_existing_users
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 
@@ -67,8 +67,11 @@ describe 'As a Merchant visiting the dashboard' do
             # order 2 and 6 and for item 1 and 2
             expect(user_2.all_revenue).to eq(100)
           end
+        end
       end
     end
+
+
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
      xit 'for all new users, without orders from current merchant' do
@@ -77,6 +80,8 @@ describe 'As a Merchant visiting the dashboard' do
    end
   end
 end
+
+# redo all testing above for @merchant_2
 
 # Downloadable Merchant User Lists
 # Merchants can generate a list of email addresses for ALL EXISTING USERS who are
@@ -91,4 +96,4 @@ end
 # include their name, email address, how much they've spent from other merchants,
 # and how many orders they've made on the system.
 #
-# These user lists should be downloadable CSV files, one user per line in the CSV.
+# These user lists should be downloadable CSV files, one user per line in the CSV
