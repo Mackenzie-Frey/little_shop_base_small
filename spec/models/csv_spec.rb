@@ -10,12 +10,20 @@ describe 'As a Merchant visiting the dashboard' do
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
       @user_3 = create(:user, name: "C User")
-      @user_4 = create(:inactive_user, name: "D User")
-      create(:order_item, order: orders[0], item: item, price: 1, quantity: 1)
-      create(:order_item, order: orders[1], item: item, price: 1, quantity: 1)
+      @user_4_inactive = create(:inactive_user, name: "D User")
 
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_2)
+
+      @order_1 = create(:completed_order, user: @user_1)
+      @order_2 = create(:completed_order, user: @user_2)
+      @order_3 = create(:completed_order, user: @user_3)
+      @order_4_not_completed = create(:order, user: @user_1)
+
+      @order_item_1_not_fulfilled = create(:fulfilled_order_item, order: order, item: item_3, price: 1, quantity: 1)
+
+      @order_item_1 = create(:order_item, order: @order_1, item: @item_1, price: 1, quantity: 1)
+      @order_item_2 = create(:order_item, order: @order_2, item: @item_2, price: 1, quantity: 1)
 
     end
 
@@ -33,17 +41,38 @@ describe 'As a Merchant visiting the dashboard' do
     end
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
-     it 'for all new users, without orders from current merchant' do
+     xit 'for all new users, without orders from current merchant' do
 
      end
    end
   end
 end
 
-# Next step. Create the test data.
+# Current plan:
+# Do model testing for Active Record commands
+
+# Next step. Create the test data. -> calculate prices.
+# make sure works for multiple quantity
 # make disbaled user and test not getting it
 # make active user never bought anything from us, test.
 # make orders
 # make items
 # make order items
 # make order items for a different merchant
+# Make sure it only counts an item if the status is fulfilled
+
+
+# Downloadable Merchant User Lists
+# Merchants can generate a list of email addresses for ALL EXISTING USERS who are
+# NOT DISABLED who have
+# ORDERED ITEMS from THIS MERCHANT in the past.
+# The 4 columns must include: their name, email address,
+# and how much money they've spent on your items,
+# and how much they've spent from all merchants.
+#
+# Merchants can generate a list of all NEW USERS who have NEVER ORDERED from them before.
+# Columns must
+# include their name, email address, how much they've spent from other merchants,
+# and how many orders they've made on the system.
+#
+# These user lists should be downloadable CSV files, one user per line in the CSV.
