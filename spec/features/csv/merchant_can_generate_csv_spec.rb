@@ -2,13 +2,15 @@ require 'rails_helper'
 
 describe 'As a Merchant visiting the dashboard' do
   it 'sees the buttons to generate the files' do
-
+    merchant = create(:merchant)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+    
     visit dashboard_path
 
-    within "#existing-users-with-orders-from-merchant" do
+    within '#existing-users-not-disabled-with-orders-from-merchant' do
       expect(page).to have_button('Download CSV')
     end
-    within "#new-users-without-orders-from-merchant" do
+    within '#new-users-without-orders-from-merchant' do
       expect(page).to have_button('Download CSV')
     end
   end
