@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :update]
 
   get '/dashboard', to: 'merchants#show', as: 'dashboard'
-  post '/dashboard/users/existing', to: 'dashboard#export_existing'
-  post '/dashboard/users/new', to: 'dashboard#export_new'
+  post '/dashboard/users/existing', to: 'merchants#export_existing'
+  post '/dashboard/users/new', to: 'merchants#export_new'
   namespace :dashboard do
     resources :orders, only: [:show] do
       patch '/items/:id/fulfill', to: 'orders#fulfill_item', as: 'item_fulfill'
