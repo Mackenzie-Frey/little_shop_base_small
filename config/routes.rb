@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :update]
 
   get '/dashboard', to: 'merchants#show', as: 'dashboard'
+  post '/dashboard/users/existing', to: 'merchants#export_existing'
+  post '/dashboard/users/new', to: 'merchants#export_new'
   namespace :dashboard do
     resources :orders, only: [:show] do
       patch '/items/:id/fulfill', to: 'orders#fulfill_item', as: 'item_fulfill'
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
     patch '/items/:id/enable', to: 'items#enable', as: 'enable_item'
     patch '/items/:id/disable', to: 'items#disable', as: 'disable_item'
   end
+
   get '/profile', to: 'profile#index', as: 'profile'
 
   get '/profile/edit', to: 'users#edit'
