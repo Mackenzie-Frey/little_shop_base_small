@@ -112,4 +112,7 @@ class User < ApplicationRecord
       .order('revenue desc')
       .limit(3)
   end
+
+  def existing_customer_csv
+  end
 end

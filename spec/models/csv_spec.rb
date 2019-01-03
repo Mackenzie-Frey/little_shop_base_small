@@ -9,8 +9,8 @@ describe 'As a Merchant visiting the dashboard' do
 
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
-      @user_3 = create(:user, name: "B User")
-      @user_4_inactive = create(:inactive_user, name: "C User")
+      @user_3 = create(:user, name: "C User")
+      @user_4_inactive = create(:inactive_user, name: "D User")
 
       @item_1 = create(:item, user: @merchant_1, inventory: 1000, price: 5)
       @item_2 = create(:item, user: @merchant_2, inventory: 1000, price: 10)
@@ -35,21 +35,38 @@ describe 'As a Merchant visiting the dashboard' do
     end
 
     describe 'with name, email, money spent with this merchant, money spent with all' do
-      it 'for existing, not disabled users, who have ordered from current merchant' do
-        data = @merchant_1.exiting_customer_csv
+      describe 'for existing, not disabled users, who have ordered from current merchant' do
 
-        expect(data).to eq([@user_1, @user_2])
+        describe 'instance methods' do
+          it '.existing_customer.csv' do
+            merchant_1_data = @merchant_1.existing_customer_csv
 
-        # user 1 my revenue 50 +50 +25 (orders 1, 4 and 5, for item 1)
-        expect(data[0].my_revenue).to eq(125)
-        # plus 200 to 125, (orders 1, 4 and 5, for item 1 & 2)
-        expect(data[0].all_revenue).to eq(325)
+            expect(merchant_1_data).to eq([@user_1, @user_2])
+          end
 
-        #orders 2 and 6, for item 1
-        expect(data[1].my_revenue).to eq(75)
+          it '.my_revenue' do
+            merchant_1_data = @merchant_1.existing_customer_csv
+            user_1 = merchant_1_data[0]
+            user_2 = merchant_1_data[1]
 
-        # order 2 and 6 and for item 1 and 2
-        expect(data[1].all_revenue).to eq(100)
+            # user 1 my revenue 50 +50 +25 (orders 1, 4 and 5, for item 1)
+            expect(user_1.my_revenue).to eq(125)
+
+            #orders 2 and 6, for item 1
+            expect(user_2.my_revenue).to eq(75)
+          end
+
+          it '.all_revenue' do
+            merchant_1_data = @merchant_1.existing_customer_csv
+            user_1 = merchant_1_data[0]
+            user_2 = merchant_1_data[1]
+
+            # plus 200 to 125, (orders 1, 4 and 5, for item 1 & 2)
+            expect(user_1.all_revenue).to eq(325)
+
+            # order 2 and 6 and for item 1 and 2
+            expect(user_2.all_revenue).to eq(100)
+          end
       end
     end
 
