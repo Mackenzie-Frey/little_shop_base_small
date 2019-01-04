@@ -30,6 +30,8 @@ class MerchantsController < ApplicationController
   end
 
   def export_existing
+    @merchant = current_user
+    
   end
 
   def export_new
