@@ -120,13 +120,17 @@ class User < ApplicationRecord
     .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
     .where(active: true)
-    .where("order_items.item.merchant_id = ?", id)
+
+    .where("items.merchant_id = ?", id)
     .where("order_items.fulfilled = true")
     .group(:id)
-    .order(name: :asc).users
+    .order(name: :asc)
+# We could do a pluck here, or maybe something else to extract these users.
+    
   end
 
-
+User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true)[0].order_items[0].item.merchant_id
+User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true)
 
 
   def my_revenue
