@@ -113,32 +113,21 @@ class User < ApplicationRecord
       .limit(3)
   end
 
-# How to pass in which merchant we want? should it be my_existing_users(@merchant) or merchant_params(:id)... but where does it get the params from?
-# how to bring this all together with the .my_revenue and the .all_revenue methods to create a table to output to csv?
-
-
   def my_existing_users
+    binding.pry
     User
     .joins(:orders, :order_items)
-    .joins("inner join order_items oi on oi.item_id=items.id")
+    .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
     .where(active: true)
     .where("order_items.item.merchant_id = ?", id)
     .where("order_items.fulfilled = true")
-    .group(:name)
+    .group(:id)
     .order(name: :asc).users
   end
-  #
-
-# or ("order_items.id = true")
-# joins with :items????
-# User.joins(:orders, :order_items).joins("inner join order_items oi on oi.item_id=items.id").where(role: "default").where(active: true).where("order_items.item.merchant_id = ?", id)
 
 
-# Hello. I’m working on Downloadable Merchant User Lists. I’m doing an Active Record query
-# and conceptually unsure of how to access the params merchant (the current user)
-# current branch: csv_active_record_integration &
-# link to it: https://github.com/Mackenzie-Frey/little_shop_base_small/tree/csv_active_record_integration
+
 
   def my_revenue
     #sum(:price/something like that)
