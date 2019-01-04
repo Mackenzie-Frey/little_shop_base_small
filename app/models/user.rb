@@ -113,21 +113,21 @@ class User < ApplicationRecord
       .limit(3)
   end
 
-# How to pass in which merchant we want. should it be my_existing_users(@merchant)
-# how to bring this all together with the my_revnue and the all_revenue methods to create a table to output to csv
+# How to pass in which merchant we want? should it be my_existing_users(@merchant) or merchant_params(:id)... but where does it get the params from?
+# how to bring this all together with the .my_revenue and the .all_revenue methods to create a table to output to csv?
+# we want to output an array of two user objects. How do we do that?
+
   def my_existing_users
-    binding.pry
     User
     .joins(:orders, :order_items)
-    # .joins(:items) ????
     .where(role: "default")
     .where(active: true)
-  #  get the order here
     .where(:order_item.item.merchant_id: merchant_params(:id))
-    .where(:order_items.fulfilled: true) #("order_items.id = true")
+    .where(:order_items.fulfilled: true) # or ("order_items.id = true")
     .group(:name)
     .order(name: :asc)
 
+# User.joins(:orders, :order_items).where(role: "default").where(active: true)
   end
 
 
