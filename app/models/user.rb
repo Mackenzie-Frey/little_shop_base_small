@@ -114,27 +114,22 @@ class User < ApplicationRecord
   end
 
   def my_existing_users
-    binding.pry
     User
     .joins(:orders, :order_items)
     .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
     .where(active: true)
-
     .where("items.merchant_id = ?", id)
     .where("order_items.fulfilled = true")
     .group(:id)
     .order(name: :asc)
-# We could do a pluck here, or maybe something else to extract these users.
-    
   end
 
-User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true)[0].order_items[0].item.merchant_id
-User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true)
-
-
+  # .sum('order_items.quantity * order_items.price AS my_revenue')
+  # User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true).where("items.merchant_id = ?", id).where("order_items.fulfilled = true").group(:id).order(name: :asc)
   def my_revenue
-    #sum(:price/something like that)
+    User
+    .sum('order_items.quantity * order_items.price AS my_revenue')
   end
 
   def all_revenue

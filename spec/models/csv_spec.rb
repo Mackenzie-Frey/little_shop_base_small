@@ -9,15 +9,14 @@ describe 'As a Merchant visiting the dashboard' do
 
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
-      @user_3 = create(:user, name: "C User")
-      @user_4_inactive = create(:inactive_user, name: "D User")
+      @user_3_inactive = create(:inactive_user, name: "D User")
 
       @item_1 = create(:item, user: @merchant_1, inventory: 1000, price: 5)
       @item_2 = create(:item, user: @merchant_2, inventory: 1000, price: 10)
 
       @order_1 = create(:completed_order, user: @user_1)
       @order_2 = create(:completed_order, user: @user_2)
-      @order_3 = create(:completed_order, user: @user_4_inactive)
+      @order_3 = create(:completed_order, user: @user_3_inactive)
       @order_4_not_completed = create(:order, user: @user_1)
       @order_5 = create(:completed_order, user: @user_1)
       @order_6 = create(:completed_order, user: @user_2)
@@ -27,7 +26,7 @@ describe 'As a Merchant visiting the dashboard' do
      @order_item_1c = create(:fulfilled_order_item, order: @order_1, item: @item_2, price: 10, quantity: 20)
      @order_item_2a = create(:fulfilled_order_item, order: @order_6, item: @item_1, price: 5, quantity: 10)
      @order_item_2b = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 5, quantity: 5)
-     @order_item_2c = create(:fulfilled_order_item, order: @order_6, item: @item_2, price: 5, quantity: 5)
+     # @order_item_2c = create(:fulfilled_order_item, order: @order_6, item: @item_2, price: 5, quantity: 5)
      @order_item_3a_not_fulfilled = create(:order_item, order: @order_2, item: @item_1, price: 10, quantity: 2)
      @order_item_3b_not_fulfilled = create(:order_item, order: @order_2, item: @item_2, price: 10, quantity: 2)
      @order_item_4 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 5, quantity: 2)
@@ -40,15 +39,18 @@ describe 'As a Merchant visiting the dashboard' do
         describe 'instance methods' do
           it 'my_existing_users' do
             merchant_1_data = @merchant_1.my_existing_users
+            merchant_2_data = @merchant_2.my_existing_users
 
             expect(merchant_1_data).to eq([@user_1, @user_2])
+
+            expect(merchant_2_data).to eq([@user_1])
           end
 
           it '.my_revenue' do
             merchant_1_data = @merchant_1.my_existing_users
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
-
+            
             # user 1 my revenue 50 + 50 + 25 (orders 1, 4 and 5, for item 1)
             expect(user_1.my_revenue).to eq(125)
 
