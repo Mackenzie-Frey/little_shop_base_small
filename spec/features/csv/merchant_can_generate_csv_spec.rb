@@ -7,18 +7,18 @@ describe 'As a Merchant visiting the dashboard' do
 
     visit dashboard_path
     within '#existing-users-not-disabled-with-orders-from-merchant' do
-      expect(page).to have_button('Download as CSV')
+      expect(page).to have_button('View Existing Users')
 
-      click_button 'Download as CSV'
+      click_button 'View Existing Users'
 
       expect(current_path).to eq(dashboard_users_existing_path)
     end
 
     visit dashboard_path
     within '#new-users-without-orders-from-merchant' do
-      expect(page).to have_button('Download as CSV')
+      expect(page).to have_button('View New Users')
 
-      click_button 'Download as CSV'
+      click_button 'View New Users'
 
       expect(current_path).to eq(dashboard_users_new_path)
     end

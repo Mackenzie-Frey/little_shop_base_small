@@ -36,12 +36,12 @@
 
 <h4>Existing Users, Not Disabled, With Orders From Me:</h4>
 <%= tag.div id: 'existing-users-not-disabled-with-orders-from-merchant' do %>
-  <%= button_to 'Download as CSV', dashboard_users_existing_path, method: :post %>
+  <%= button_to 'View Existing Users', dashboard_users_existing_path, method: :post %>
 <% end %>
 
 <h4>Users Without Orders From Me:</h4>
 <%= tag.div id: 'new-users-without-orders-from-merchant' do %>
-  <%= button_to 'Download as CSV', dashboard_users_new_path, method: :post %>
+  <%= button_to 'View New Users', dashboard_users_new_path, method: :post %>
 <% end %>
 
 
