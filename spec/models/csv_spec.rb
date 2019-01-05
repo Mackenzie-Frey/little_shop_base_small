@@ -37,29 +37,30 @@ describe 'As a Merchant visiting the dashboard' do
       describe 'for existing, not disabled users, who have ordered from current merchant' do
 
         describe 'instance methods' do
-          it 'merchants_existing_users' do
-            merchant_1_data = @merchant_1.merchants_existing_users
-            merchant_2_data = @merchant_2.merchants_existing_users
+          it 'existing_users' do
+            merchant_1_data = @merchant_1.existing_users
+            merchant_2_data = @merchant_2.existing_users
 
             expect(merchant_1_data).to eq([@user_1, @user_2])
 
             expect(merchant_2_data).to eq([@user_1])
           end
 
-          it '.merchant_revenue_from_user' do
-            merchant_1_data = @merchant_1.merchants_existing_users
+          it '.user_revenue_by_merchant' do
+            merchant_1_data = @merchant_1.existing_users
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
-            
+
+            # binding.pry
             # user 1 my revenue 50 + 50 + 25 (orders 1, 4 and 5, for item 1)
-            expect(user_1.merchant_revenue_from_user).to eq(125)
+            expect(user_1.user_revenue_by_merchant).to eq(125)
 
             #orders 2 and 6, for item 1
-            expect(user_2.merchant_revenue_from_user).to eq(75)
+            expect(user_2.user_revenue_by_merchant).to eq(75)
           end
 
           it '.all_revenue' do
-            merchant_1_data = @merchant_1.merchants_existing_users
+            merchant_1_data = @merchant_1.existing_users
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 

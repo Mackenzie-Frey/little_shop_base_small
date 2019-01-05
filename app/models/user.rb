@@ -113,7 +113,7 @@ class User < ApplicationRecord
       .limit(3)
   end
 
-  def merchants_existing_users
+  def existing_users
     User
     .joins(:orders, :order_items)
     .joins('join items on order_items.item_id=items.id')
@@ -123,7 +123,6 @@ class User < ApplicationRecord
     .where("order_items.fulfilled = true")
     .group(:id)
     .order(name: :asc)
-  
   end
 
   # User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true).where("items.merchant_id = ?", id).where("order_items.fulfilled = true").group(:id).order(name: :asc)
@@ -131,12 +130,16 @@ class User < ApplicationRecord
 # user.my_revenue_from_merchant(merchant)
 # user.all_revenue_from_user
 
-  def merchant_revenue_from_user#(merchant)
+  def user_revenue_by_merchant(merchant)
+    # User
+    # .joins(:order_items)
+    # .joins(:items)
+    # .select(items.merchant_id)
+    # order()
+    #.sum('order_items.quantity * order_items.price')
 
-    # merchants_existing_users
-    # binding.pry
-    #This method should work on an array of users, but be an active record call
-    # .sum('order_items.quantity * order_items.price')
+    #This method should work on an instance of a user and will be called in the view
+
   end
 
   def other_revenue
