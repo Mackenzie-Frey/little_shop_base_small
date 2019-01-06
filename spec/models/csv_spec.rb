@@ -25,7 +25,6 @@ describe 'As a Merchant visiting the dashboard' do
      @order_item_1c = create(:fulfilled_order_item, order: @order_1, item: @item_2, price: 10, quantity: 20)
      @order_item_2a = create(:fulfilled_order_item, order: @order_6, item: @item_1, price: 5, quantity: 10)
      @order_item_2b = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 5, quantity: 5)
-     # @order_item_2c = create(:fulfilled_order_item, order: @order_6, item: @item_2, price: 5, quantity: 5)
      @order_item_3a = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 10, quantity: 2)
      @order_item_3b = create(:fulfilled_order_item, order: @order_2, item: @item_2, price: 10, quantity: 2)
      @order_item_4 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 5, quantity: 2)
@@ -41,7 +40,7 @@ describe 'As a Merchant visiting the dashboard' do
 
             expect(merchant_1_data).to eq([@user_1, @user_2])
 
-            expect(merchant_2_data).to eq([@user_1])
+            expect(merchant_2_data).to eq([@user_1, @user_2])
           end
 
           it '.user_revenue_by_merchant' do
