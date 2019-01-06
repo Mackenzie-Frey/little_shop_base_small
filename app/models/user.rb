@@ -126,13 +126,12 @@ class User < ApplicationRecord
   end
 
   def user_revenue_by_merchant(merchant)
-    # User
-    # .joins(:orders, :order_items)
-    # .joins('join items on order_items.item_id=items.id')
-
-    # .where("items.merchant_id = ?", merchant.id)
-    # order()
-    # .sum('order_items.quantity * order_items.price')
+    self.orders.joins(:order_items)
+      .where(status: :completed)
+      .joins('join items on order_items.item_id=items.id')
+      .where("order_items.fulfilled=?", true)
+      .where("items.merchant_id = ?", merchant.id)
+      .sum('order_items.quantity * order_items.price')
   end
 
   def all_revenue

@@ -39,7 +39,6 @@ describe 'As a Merchant visiting the dashboard' do
             merchant_2_data = @merchant_2.existing_users
 
             expect(merchant_1_data).to eq([@user_1, @user_2])
-
             expect(merchant_2_data).to eq([@user_1, @user_2])
           end
 
@@ -49,7 +48,7 @@ describe 'As a Merchant visiting the dashboard' do
             user_2 = merchant_1_data[1]
 
             expect(user_1.user_revenue_by_merchant(@merchant_1)).to eq(100)
-            expect(user_2.user_revenue_by_merchant(@merchant_1)).to eq(75)
+            expect(user_2.user_revenue_by_merchant(@merchant_1)).to eq(9git5)
           end
 
           it '.all_revenue' do
