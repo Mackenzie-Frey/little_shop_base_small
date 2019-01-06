@@ -49,11 +49,8 @@ describe 'As a Merchant visiting the dashboard' do
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 
-            # user 1 my revenue 50 + 50 + 25 (orders 1, 4 and 5, for item 1)
-            expect(user_1.user_revenue_by_merchant).to eq(125)
-
-            #orders 2 and 6, for item 1
-            expect(user_2.user_revenue_by_merchant).to eq(75)
+            expect(user_1.user_revenue_by_merchant(@merchant_1)).to eq(100)
+            expect(user_2.user_revenue_by_merchant(@merchant_1)).to eq(75)
           end
 
           it '.all_revenue' do
@@ -61,17 +58,12 @@ describe 'As a Merchant visiting the dashboard' do
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 
-            # plus 200 to 125, (orders 1, 4 and 5, for item 1 & 2)
             expect(user_1.all_revenue).to eq(300)
-
-            # order 2 and 6 and for item 1 and 2
             expect(user_2.all_revenue).to eq(115)
           end
         end
       end
     end
-
-
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
      xit 'for all new users, without orders from current merchant' do
@@ -82,18 +74,3 @@ describe 'As a Merchant visiting the dashboard' do
 end
 
 # redo all testing above for @merchant_2
-
-# Downloadable Merchant User Lists
-# Merchants can generate a list of email addresses for ALL EXISTING USERS who are
-# NOT DISABLED who have
-# ORDERED ITEMS from THIS MERCHANT in the past.
-# The 4 columns must include: their name, email address,
-# and how much money they've spent on your items,
-# and how much they've spent from all merchants.
-#
-# Merchants can generate a list of all NEW USERS who have NEVER ORDERED from them before.
-# Columns must
-# include their name, email address, how much they've spent from other merchants,
-# and how many orders they've made on the system.
-#
-# These user lists should be downloadable CSV files, one user per line in the CSV
