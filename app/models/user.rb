@@ -125,28 +125,50 @@ class User < ApplicationRecord
     .order(name: :asc)
   end
 
+
   # User.joins(:orders, :order_items).joins('join items on order_items.item_id=items.id').where(role: "default").where(active: true).where("items.merchant_id = ?", id).where("order_items.fulfilled = true").group(:id).order(name: :asc)
 
 # user.my_revenue_from_merchant(merchant)
 # user.all_revenue_from_user
 
   def user_revenue_by_merchant(merchant)
+    binding.pry
     # User
-    # .joins(:order_items)
-    # .joins(:items)
-    # .select(items.merchant_id)
+    # .joins(:orders, :order_items)
+    # .joins('join items on order_items.item_id=items.id')
+
+    # .where("items.merchant_id = ?", merchant.id)
     # order()
-    #.sum('order_items.quantity * order_items.price')
+    # .sum('order_items.quantity * order_items.price')
 
     #This method should work on an instance of a user and will be called in the view
 
   end
 
-  def other_revenue
+  # def all_revenue
+  #   User
+  #   .joins(:orders, :order_items)
+  #   # .joins('join items on order_items.item_id=items.id')
+  #   .where("order_items.fulfilled = true")
+  #   .where("orders.user_id = ?", id)
+  #   .sum('order_items.quantity * order_items.price')
+  # end
 
+  def all_revenue
+    self.orders.joins(:order_items)
+      .where(status: :completed)
+      .where("order_items.fulfilled=?", true)
+      .sum('order_items.quantity * order_items.price')
   end
 end
-
+#
+# User.joins('inner join orders o on o.user_id=users.id inner join order_items oi on oi.order_id=o.id inner join items i on i.id=oi.item_id')
+#
+#   .select('sum(oi.quantity*oi.price) as revenue')
+#   .where("orders.user_id = ?", id)
+#   .where("order_items.fulfilled = true")
+#   # .group(:id)
+#   .pluck(:revenue)
 
 # NOT DISABLED
 # >>>>>>>

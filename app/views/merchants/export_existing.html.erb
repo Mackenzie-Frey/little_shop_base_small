@@ -1,9 +1,8 @@
-<% binding.pry %>
 <% @merchant.existing_users.each do |user| %>
-  <%= user.name %>
+  <pre><%= user.name %>
   <%= user.email %>
   <%= user.user_revenue_by_merchant(@merchant) %>
-  <%= user. %>
+  <%= user.all_revenue %></pre>
 <% end %>
 
 <!-- Test this is displaying to the page.

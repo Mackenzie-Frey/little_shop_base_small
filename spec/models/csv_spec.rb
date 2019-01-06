@@ -17,7 +17,6 @@ describe 'As a Merchant visiting the dashboard' do
       @order_1 = create(:completed_order, user: @user_1)
       @order_2 = create(:completed_order, user: @user_2)
       @order_3 = create(:completed_order, user: @user_3_inactive)
-      @order_4_not_completed = create(:order, user: @user_1)
       @order_5 = create(:completed_order, user: @user_1)
       @order_6 = create(:completed_order, user: @user_2)
 
@@ -27,10 +26,9 @@ describe 'As a Merchant visiting the dashboard' do
      @order_item_2a = create(:fulfilled_order_item, order: @order_6, item: @item_1, price: 5, quantity: 10)
      @order_item_2b = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 5, quantity: 5)
      # @order_item_2c = create(:fulfilled_order_item, order: @order_6, item: @item_2, price: 5, quantity: 5)
-     @order_item_3a_not_fulfilled = create(:order_item, order: @order_2, item: @item_1, price: 10, quantity: 2)
-     @order_item_3b_not_fulfilled = create(:order_item, order: @order_2, item: @item_2, price: 10, quantity: 2)
+     @order_item_3a = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 10, quantity: 2)
+     @order_item_3b = create(:fulfilled_order_item, order: @order_2, item: @item_2, price: 10, quantity: 2)
      @order_item_4 = create(:fulfilled_order_item, order: @order_3, item: @item_1, price: 5, quantity: 2)
-     @order_item_5 = create(:fulfilled_order_item, order: @order_4_not_completed, item: @item_1, price: 5, quantity: 5)
     end
 
     describe 'with name, email, money spent with this merchant, money spent with all' do
@@ -51,7 +49,6 @@ describe 'As a Merchant visiting the dashboard' do
             user_1 = merchant_1_data[0]
             user_2 = merchant_1_data[1]
 
-            # binding.pry
             # user 1 my revenue 50 + 50 + 25 (orders 1, 4 and 5, for item 1)
             expect(user_1.user_revenue_by_merchant).to eq(125)
 
@@ -65,10 +62,10 @@ describe 'As a Merchant visiting the dashboard' do
             user_2 = merchant_1_data[1]
 
             # plus 200 to 125, (orders 1, 4 and 5, for item 1 & 2)
-            expect(user_1.all_revenue).to eq(325)
+            expect(user_1.all_revenue).to eq(300)
 
             # order 2 and 6 and for item 1 and 2
-            expect(user_2.all_revenue).to eq(100)
+            expect(user_2.all_revenue).to eq(115)
           end
         end
       end
