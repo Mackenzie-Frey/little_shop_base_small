@@ -142,16 +142,6 @@ class User < ApplicationRecord
   end
 end
 
-# NOT DISABLED
-# >>>>>>>
-
-# ORDERED ITEMS from THIS MERCHANT in the past
-# only completed order_items
-# name
-# email address
-# money spent on your items
-# money spent on all merchants
-
 # ---------------------------------------------
 
 # def my_existing_users
