@@ -67,32 +67,40 @@ describe 'As a Merchant visiting the dashboard' do
      describe 'for all new - active users, without orders from current merchant' do
        before :each do
          @merchant_3 = create(:merchant)
+         @merchant_4 = create(:merchant)
+         @merchant_5 = create(:merchant)
 
          @item_3 = create(:item, user: @merchant_3, inventory: 1000, price: 5)
+         @item_4 = create(:item, user: @merchant_4, inventory: 1000, price: 10)
+         @item_5 = create(:item, user: @merchant_5, inventory: 1000, price: 20)
 
          @user_4 = create(:inactive_user, name: "D User")
          @user_5 = create(:inactive_user, name: "E User")
+         @user_6 = create(:inactive_user, name: "F User")
 
          @order_7 = create(:completed_order, user: @user_4)
          @order_8 = create(:completed_order, user: @user_5)
 
-         @order_item_5 = create(:fulfilled_order_item, order: @order_7, item: @item_1, price: 5, quantity: 10)
+         @order_item_5 = create(:fulfilled_order_item, order: @order_7, item: @item_3, price: 5, quantity: 10)
+         @order_item_6 = create(:fulfilled_order_item, order: @order_8, item: @item_4, price: 10, quantity: 10)
 
-         it 'new_users' do
-           merchant_1_data = @merchant_1.new_users
-           merchant_2_data = @merchant_2.new_users
+         it '.new_users' do
            merchant_3_data = @merchant_3.new_users
+           merchant_4_data = @merchant_4.new_users
+           merchant_5_data = @merchant_5.new_users
 
-           expect(merchant_1_data).to eq([@user_5])
-           expect(merchant_2_data).to eq([])
-           expect(merchant_3_data).to eq([@user_4, @user_5])
+           expect(merchant_3_data).to eq([@user_5, @user_6])
+           expect(merchant_4_data).to eq([@user_4, @user_6])
+           expect(merchant_5_data).to eq([@user_4, @user_5, @user_6])
+         end
+
+         it '.order_count' do
+           expect(@user_4.order_count).to eq(1)
+           expect(@user_5.order_count).to eq(1)
+           expect(@user_6.order_count).to eq(0)   
          end
        end
      end
    end
   end
 end
-
-# merchant_1 - user_4 ordered from them       => expect([@user_5])
-# merchant_2 - user_4 & 5 ordered from them   => expect([])
-# merchant_3 - no users have ordered          => expect([@user_4, @user_5])
