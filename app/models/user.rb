@@ -144,7 +144,7 @@ class User < ApplicationRecord
 # All active users who have never ordered from them
 # All users, with orders, who have never ordered from them
   def new_users
-    binding.pry
+    # binding.pry
     User.joins(:orders, :order_items)
     .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
