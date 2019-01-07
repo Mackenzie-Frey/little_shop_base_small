@@ -85,17 +85,13 @@ describe 'As a Merchant visiting the dashboard' do
            order_item_5 = create(:fulfilled_order_item, order: order_7, item: item_3, price: 5, quantity: 10)
            order_item_6 = create(:fulfilled_order_item, order: order_8, item: item_4, price: 10, quantity: 10)
 
-           merchant_3_data = merchant_3.new_users
-           merchant_4_data = merchant_4.new_users
-           merchant_5_data = merchant_5.new_users
 
-
-           expect(merchant_3_data).to eq([user_5, user_6])
-           expect(merchant_4_data).to eq([user_4, user_6])
-           expect(merchant_5_data).to eq([user_4, user_5, user_6])
+           expect(merchant_3.new_users).to eq([user_5, user_6])
+           expect(merchant_4.new_users).to eq([user_4, user_6])
+           expect(merchant_5.new_users).to eq([user_4, user_5, user_6])
          end
 
-         it '.order_count' do
+         it '.count' do
            merchant_3 = create(:merchant)
            merchant_4 = create(:merchant)
            merchant_5 = create(:merchant)
@@ -114,10 +110,9 @@ describe 'As a Merchant visiting the dashboard' do
            order_item_5 = create(:fulfilled_order_item, order: order_7, item: item_3, price: 5, quantity: 10)
            order_item_6 = create(:fulfilled_order_item, order: order_8, item: item_4, price: 10, quantity: 10)
 
-
-           expect(user_4.order_count).to eq(1)
-           expect(user_5.order_count).to eq(1)
-           expect(user_6.order_count).to eq(0)
+           expect(user_4.orders.count).to eq(1)
+           expect(user_5.orders.count).to eq(1)
+           expect(user_6.orders.count).to eq(0)
          end
        end
      end

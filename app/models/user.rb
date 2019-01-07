@@ -140,4 +140,16 @@ class User < ApplicationRecord
       .where("order_items.fulfilled=?", true)
       .sum('order_items.quantity * order_items.price')
   end
+
+  def new_users
+    User.joins(:orders, :order_items)
+    .joins('join items on order_items.item_id=items.id')
+    .where(role: "default")
+    .where(active: true)
+    .where("items.merchant_id != ?", id)
+    .where("order_items.fulfilled = true")
+    .group(:id)
+    .order(name: :asc)
+  end
+
 end
