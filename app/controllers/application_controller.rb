@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :build_cart
 
+  require 'csv'
+
   def current_user
     @current_user_lookup ||= User.find(session[:user_id]) if session[:user_id]
   end

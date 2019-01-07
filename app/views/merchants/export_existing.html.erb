@@ -1,9 +1,11 @@
-<% @merchant.existing_users.each do |user| %>
-  <pre><%= user.name %>
-  <%= user.email %>
-  <%= user.user_revenue_by_merchant(@merchant) %>
-  <%= user.all_revenue %></pre>
-<% end %>
-
-<!-- Test this is displaying to the page.
-Integrate the weird spacing suggested in slack. -->
+<div class='csv-container'>
+  <div class='existing-header existing-header-1'>Name</div> <div class='existing-header existing-header-2'>Email</div> <div class='existing-header existing-header-4'>User Revenue By Merchant($)</div> <div class='existing-header existing-header-4'>All Revenue($)</div>
+  <% @merchant.existing_users.each do |user| %>
+    <div class='csv-item'>
+      <p class='csv-output csv-output-name'><%= user.name %></p>
+      <p class='csv-output csv-output-email'><%= user.email %></p>
+      <p class='csv-output csv-output-3'><%= user.user_revenue_by_merchant(@merchant) %></p>
+      <p class='csv-output csv-output-4'><%= user.all_revenue %></p>
+    </div>
+  <% end %>
+</div>

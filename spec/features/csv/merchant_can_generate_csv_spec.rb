@@ -38,8 +38,8 @@ describe 'As a Merchant visiting the dashboard' do
       click_button 'View Existing Users'
 
       expect(current_path).to eq(dashboard_users_existing_path)
-      # expect(page).to have_content(user_1.name, user_1.email)
-      # expect(page).to have_content(user_2.name, user_2.email)
+      expect(page).to have_content(user_1.name,user_1.email)
+      expect(page).to have_content(user_2.name,user_2.email)
     end
   end
   it 'sees the buttons to access CSV content for new users and content on linked path' do
