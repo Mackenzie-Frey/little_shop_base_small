@@ -9,7 +9,7 @@ describe 'As a Merchant visiting the dashboard' do
 
       @user_1 = create(:user, name: "A User")
       @user_2 = create(:user, name: "B User")
-      @user_3_inactive = create(:inactive_user, name: "D User")
+      @user_3_inactive = create(:inactive_user, name: "C User")
 
       @item_1 = create(:item, user: @merchant_1, inventory: 1000, price: 5)
       @item_2 = create(:item, user: @merchant_2, inventory: 1000, price: 10)
@@ -64,9 +64,35 @@ describe 'As a Merchant visiting the dashboard' do
     end
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
-     xit 'for all new users, without orders from current merchant' do
+     describe 'for all new - active users, without orders from current merchant' do
+       before :each do
+         @merchant_3 = create(:merchant)
 
+         @item_3 = create(:item, user: @merchant_3, inventory: 1000, price: 5)
+
+         @user_4 = create(:inactive_user, name: "D User")
+         @user_5 = create(:inactive_user, name: "E User")
+
+         @order_7 = create(:completed_order, user: @user_4)
+         @order_8 = create(:completed_order, user: @user_5)
+
+         @order_item_5 = create(:fulfilled_order_item, order: @order_7, item: @item_1, price: 5, quantity: 10)
+
+         it 'new_users' do
+           merchant_1_data = @merchant_1.new_users
+           merchant_2_data = @merchant_2.new_users
+           merchant_3_data = @merchant_3.new_users
+
+           expect(merchant_1_data).to eq([@user_5])
+           expect(merchant_2_data).to eq([])
+           expect(merchant_3_data).to eq([@user_4, @user_5])
+         end
+       end
      end
    end
   end
 end
+
+# merchant_1 - user_4 ordered from them       => expect([@user_5])
+# merchant_2 - user_4 & 5 ordered from them   => expect([])
+# merchant_3 - no users have ordered          => expect([@user_4, @user_5])
