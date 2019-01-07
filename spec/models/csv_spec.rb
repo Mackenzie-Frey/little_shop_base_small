@@ -66,7 +66,7 @@ describe 'As a Merchant visiting the dashboard' do
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
      describe 'for all new - active users, without orders from current merchant' do
-         xit '.new_users' do
+         it '.new_users' do
            merchant_3 = create(:merchant)
            merchant_4 = create(:merchant)
            merchant_5 = create(:merchant)

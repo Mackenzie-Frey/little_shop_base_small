@@ -75,6 +75,7 @@ describe 'As a Merchant visiting the dashboard' do
       expect(current_path).to eq(dashboard_users_new_path)
     end
 
+
     expect(page).to have_content(user_5.name, user_5.email)
     expect(page).to have_content(user_6.name, user_6.email)
   end
