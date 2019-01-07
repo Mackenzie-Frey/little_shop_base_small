@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'As a Merchant visiting the dashboard' do
 
-  it 'sees the buttons to download CSV files plus content' do
+  it 'sees the buttons to access CSV content' do
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
 
@@ -25,7 +25,6 @@ describe 'As a Merchant visiting the dashboard' do
     order_item_1c = create(:fulfilled_order_item, order: order_1, item: item_2, price: 10, quantity: 20)
     order_item_2a = create(:fulfilled_order_item, order: order_6, item: item_1, price: 5, quantity: 10)
     order_item_2b = create(:fulfilled_order_item, order: order_2, item: item_1, price: 5, quantity: 5)
-    #order_item_2c = create(:fulfilled_order_item, order: order_6, item: item_2, price: 5, quantity: 5)
     order_item_3a_not_fulfilled = create(:order_item, order: order_2, item: item_1, price: 10, quantity: 2)
     order_item_3b_not_fulfilled = create(:order_item, order: order_2, item: item_2, price: 10, quantity: 2)
     order_item_4 = create(:fulfilled_order_item, order: order_3, item: item_1, price: 5, quantity: 2)

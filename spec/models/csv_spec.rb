@@ -75,9 +75,9 @@ describe 'As a Merchant visiting the dashboard' do
            item_4 = create(:item, user: merchant_4, inventory: 1000, price: 10)
            item_5 = create(:item, user: merchant_5, inventory: 1000, price: 20)
 
-           user_4 = create(:inactive_user, name: "D User")
-           user_5 = create(:inactive_user, name: "E User")
-           user_6 = create(:inactive_user, name: "F User")
+           user_4 = create(:user, name: "User 4")
+           user_5 = create(:user, name: "User 5")
+           user_6 = create(:user, name: "User 6")
 
            order_7 = create(:completed_order, user: user_4)
            order_8 = create(:completed_order, user: user_5)
