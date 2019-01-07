@@ -34,6 +34,7 @@ class MerchantsController < ApplicationController
   end
 
   def export_new
+    @merchant = current_user
   end
 
   private
