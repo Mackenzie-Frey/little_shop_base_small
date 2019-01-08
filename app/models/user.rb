@@ -160,4 +160,22 @@ class User < ApplicationRecord
     .where.not(id: previous_purchasers_id)
     .order(name: :asc)
   end
+
+  def top_merchants_fulfilling_orders_this_month(limit)
+  end
+
+  def top_merchants_fulfilling_orders_last_month(limit)
+  end
+
+  def top_merchants_fulfilling_non_cancelled_orders_this_month(limit)
+  end
+
+  def top_merchants_fulfilling_non_cancelled_orders_last_month(limit)
+  end
+
+  def top_merchants_fulfilling_fastest_orders_my_state(limit)
+  end
+
+  def top_merchants_fulfilling_fastest_orders_my_city(limit)
+  end
 end
