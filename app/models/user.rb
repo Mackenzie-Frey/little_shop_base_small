@@ -113,43 +113,51 @@ class User < ApplicationRecord
       .limit(3)
   end
 
-# How to pass in which merchant we want. should it be my_existing_users(@merchant)
-# how to bring this all together with the my_revnue and the all_revenue methods to create a table to output to csv
-  def my_existing_users
-    binding.pry
+  def existing_users
     User
     .joins(:orders, :order_items)
-    # .joins(:items) ????
+    .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
     .where(active: true)
-  #  get the order here
-    .where(:order_item.item.merchant_id: merchant_params(:id))
-    .where(:order_items.fulfilled: true) #("order_items.id = true")
-    .group(:name)
+    .where("items.merchant_id = ?", id)
+    .where("order_items.fulfilled = true")
+    .group(:id)
     .order(name: :asc)
-
   end
 
-
-
-
-
-
-  def my_revenue
-    #sum(:price/something like that)
+  def user_revenue_by_merchant(merchant)
+    self.orders.joins(:order_items)
+      .where(status: :completed)
+      .joins('join items on order_items.item_id=items.id')
+      .where("order_items.fulfilled=?", true)
+      .where("items.merchant_id = ?", merchant.id)
+      .sum('order_items.quantity * order_items.price')
   end
 
   def all_revenue
+    self.orders.joins(:order_items)
+      .where(status: :completed)
+      .where("order_items.fulfilled=?", true)
+      .sum('order_items.quantity * order_items.price')
+  end
+
+  def existing_users_by_id
+    User
+    .joins(:orders, :order_items)
+    .joins('join items on order_items.item_id=items.id')
+    .where(role: "default")
+    .where(active: true)
+    .where("items.merchant_id = ?", id)
+    .where("order_items.fulfilled = true")
+    .group(:id)
+    .pluck(:id)
+  end
+
+  def new_users(previous_purchasers_id)
+    User
+    .where(active: true)
+    .where(role: "default")
+    .where.not(id: previous_purchasers_id)
+    .order(name: :asc)
   end
 end
-
-
-# NOT DISABLED
-# >>>>>>>
-
-# ORDERED ITEMS from THIS MERCHANT in the past
-# only completed order_items
-# name
-# email address
-# money spent on your items
-# money spent on all merchants
