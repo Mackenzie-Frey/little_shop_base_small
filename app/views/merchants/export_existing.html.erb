@@ -1,11 +1,12 @@
+<h3>EXISTING USERS</h3>
 <div class='csv-container'>
   <div class='existing-header existing-header-1'>Name</div> <div class='existing-header existing-header-2'>Email</div> <div class='existing-header existing-header-4'>User Revenue By Merchant($)</div> <div class='existing-header existing-header-4'>All Revenue($)</div>
   <% @merchant.existing_users.each do |user| %>
     <div class='csv-item'>
       <p class='csv-output csv-output-name'><%= user.name %></p>
       <p class='csv-output csv-output-email'><%= user.email %></p>
-      <p class='csv-output csv-output-3'><%= user.user_revenue_by_merchant(@merchant) %></p>
-      <p class='csv-output csv-output-4'><%= user.all_revenue %></p>
+      <p class='csv-output csv-output-3'><%= user.user_revenue_by_merchant(@merchant).to_i %></p>
+      <p class='csv-output csv-output-4'><%= user.all_revenue.to_i %></p>
     </div>
   <% end %>
 </div>

@@ -40,8 +40,8 @@ describe 'As a Merchant visiting the dashboard' do
       expect(current_path).to eq(dashboard_users_existing_path)
     end
 
-    expect(page).to have_content(user_1.name, user_1.email, 100.0, 300.0)
-    expect(page).to have_content(user_2.name, user_2.email, 95.0, 115.0)
+    expect(page).to have_content(user_1.name, user_1.email, 100, 300)
+    expect(page).to have_content(user_2.name, user_2.email, 95, 115)
   end
 
   it 'sees the buttons to access CSV content for new users and content on linked path' do
