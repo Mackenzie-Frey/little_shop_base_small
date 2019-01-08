@@ -198,6 +198,15 @@ class User < ApplicationRecord
   end
 
   def self.top_merchants_fulfilling_non_cancelled_orders_last_month(limit)
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .select('users.*, sum(order_items.quantity) as items_sold').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where.not('orders.status = ?', 2)
+    .where('EXTRACT(MONTH FROM order_items.updated_at) = ?', 1.month.ago.month)
+    .order('items_sold DESC')
+    .limit(limit)
   end
 
   def self.top_merchants_fulfilling_fastest_orders_my_state(limit)

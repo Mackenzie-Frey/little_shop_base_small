@@ -89,7 +89,7 @@ RSpec.describe User, type: :model do
       create(:order_item, order: orders[1], item: item_2, price: 1, quantity: 1)
       create(:order_item, order: orders[2], item: item_1, price: 1, quantity: 1)
 
-      expect(merchants[0].my_pending_orders).to eq([orders[0], orders[2]])
+      expect(merchants[0].my_pending_orders).to eq([orders[2], orders[0]])
       expect(merchants[1].my_pending_orders).to eq([orders[1]])
     end
 
