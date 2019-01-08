@@ -161,10 +161,10 @@ class User < ApplicationRecord
     .order(name: :asc)
   end
 
-  def top_merchants_fulfilling_orders_this_month(limit)
+  def top_merchants_selling_items_this_month(limit)
   end
 
-  def top_merchants_fulfilling_orders_last_month(limit)
+  def top_merchants_selling_items_last_month(limit)
   end
 
   def top_merchants_fulfilling_non_cancelled_orders_this_month(limit)

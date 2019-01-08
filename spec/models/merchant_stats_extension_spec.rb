@@ -38,26 +38,26 @@ RSpec.describe 'Merchant Index Page', type: :model do
       @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
 
       describe 'class methods' do
-        it '.top_merchants_fulfilling_orders_this_month(limit)' do
+        it '.top_merchants_selling_items_this_month(limit)' do
 
-          expect(User.top_merchants_fulfilling_orders_this_month(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_fulfilling_orders_this_month(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_orders_this_month(3)[1]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_orders_this_month(3)[2]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_this_month(3)).to eq([@merchant_, @merchant_, @merchant_])
+          expect(User.top_merchants_selling_items_this_month(3)[0]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_this_month(3)[1]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_this_month(3)[2]).to eq(@merchant_)
         end
 
-        xit '.top_merchants_fulfilling_orders_last_month(limit)' do
+        xit '.top_merchants_selling_items_last_month(limit)' do
 
-          expect(User.top_merchants_fulfilling_orders_last_month(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_fulfilling_orders_last_month(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_orders_last_month(3)[1]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_last_month(3)).to eq([@merchant_, @merchant_, @merchant_])
+          expect(User.top_merchants_selling_items_last_month(3)[0]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_last_month(3)[1]).to eq(@merchant_)
         end
 
         xit '.top_merchants_fulfilling_non_cancelled_orders_this_month(limit)' do
 
-          expect(User.top_merchants_fulfilling_orders_last_month(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_fulfilling_orders_last_month(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_orders_last_month(3)[1]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_last_month(3)).to eq([@merchant_, @merchant_, @merchant_])
+          expect(User.top_merchants_selling_items_last_month(3)[0]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_last_month(3)[1]).to eq(@merchant_)
         end
 
         xit '.top_merchants_fulfilling_non_cancelled_orders_last_month(limit)' do
@@ -87,11 +87,6 @@ end
 
 # Step 1:
 # Think about what each stat is looking for and get all of tests written with all of the test data.
-
-# Model Tests:
-# Pass in a count of how many things trying to output.
-# To test for 3 things instead of 10
-# def self.top_merchants_items_sold_this_month(count)
 
 # Ex. in controller
 	# @top_10_merchants_items_sold_this_month = User.top_merchants_items_sold_this_month(10)
