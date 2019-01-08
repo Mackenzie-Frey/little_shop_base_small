@@ -153,7 +153,6 @@ class User < ApplicationRecord
     .pluck(:id)
   end
 
-# All active users who have never ordered from them
   def new_users(previous_purchasers_id)
     User
     .where(active: true)
@@ -161,7 +160,4 @@ class User < ApplicationRecord
     .where.not(id: previous_purchasers_id)
     .order(name: :asc)
   end
-
-
-
 end

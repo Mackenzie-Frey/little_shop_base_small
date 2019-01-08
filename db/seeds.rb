@@ -59,3 +59,6 @@ create(:fulfilled_order_item, order: order_4, item: item_2, price: 2, quantity: 
 
 order_5 = create(:completed_order, user: user_B)
 create(:fulfilled_order_item, order: order_5, item: item_1, price: 1, quantity: 1, created_at: rng.rand(3).days.ago, updated_at: rng.rand(59).minutes.ago)
+
+order_5 = create(:completed_order, user: user_C)
+create(:fulfilled_order_item, order: order_6, item: item_1, price: 1, quantity: 1, created_at: rng.rand(3).days.ago, updated_at: rng.rand(59).minutes.ago)
