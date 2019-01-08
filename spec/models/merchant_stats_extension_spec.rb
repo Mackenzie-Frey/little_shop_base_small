@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Index Page', type: :model do
+describe 'Merchant Index Page' do
   describe 'As a User' do
     before :each do
       @user_1 = create(:user, city: 'Austin', state: 'TX')
@@ -37,13 +37,18 @@ RSpec.describe 'Merchant Index Page', type: :model do
       @oi_4_a = create(:fulfilled_order_item, item: @item_3, order: @order_4_a, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 4.minutes.ago)
       @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
 
+      @oi_4_b_1 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_2 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_3 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_4 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_5 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_6 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+end
       describe 'class methods' do
         it '.top_merchants_selling_items_this_month(limit)' do
 
-          expect(User.top_merchants_selling_items_this_month(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_selling_items_this_month(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_selling_items_this_month(3)[1]).to eq(@merchant_)
-          expect(User.top_merchants_selling_items_this_month(3)[2]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_this_month(3)).to eq([@merchant_4, @merchant_3, @merchant_2])
+          expect(User.top_merchants_fulfilled_orders_this_month(3)[0].order_items.count).to eq(5)
         end
 
         xit '.top_merchants_selling_items_last_month(limit)' do
@@ -83,7 +88,7 @@ RSpec.describe 'Merchant Index Page', type: :model do
       end
   end
   end
-end
+
 
 # Step 1:
 # Think about what each stat is looking for and get all of tests written with all of the test data.
