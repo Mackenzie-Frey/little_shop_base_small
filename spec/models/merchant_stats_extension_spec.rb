@@ -26,23 +26,33 @@ describe 'Merchant Index Page' do
       @order_3_b = create(:completed_order, user: @user_3)
       @order_4_a = create(:completed_order, user: @user_4)
       @order_4_b = create(:completed_order, user: @user_4)
+      @order_4_c = create(:completed_order, user: @user_4)
 
       @oi_1_a = create(:fulfilled_order_item, item: @item_1, order: @order_1_a, quantity: 10, price: 10, created_at: 3.months.ago, updated_at: 2.months.ago)
       @oi_1_b = create(:fulfilled_order_item, item: @item_2, order: @order_1_b, quantity: 10, price: 10, created_at: 29.days.ago, updated_at: 27.days.ago)
 
       @oi_2_a = create(:fulfilled_order_item, item: @item_3, order: @order_2_a, quantity: 10, price: 10, created_at: 5.days.ago, updated_at: 4.days.ago)
-      @oi_2_b = create(:fulfilled_order_item, item: @item_4, order: @order_2_b, quantity: 10, price: 10, created_at: 5.minutes.ago, updated_at: 32.minutes.ago)
-      @oi_3_a = create(:fulfilled_order_item, item: @item_1, order: @order_3_a, quantity: 10, price: 10, created_at: 4.minutes.ago, updated_at: 16.minutes.ago)
-      @oi_3_b = create(:fulfilled_order_item, item: @item_2, order: @order_3_b, quantity: 10, price: 10, created_at: 3.minutes.ago, updated_at: 8.minutes.ago)
-      @oi_4_a = create(:fulfilled_order_item, item: @item_3, order: @order_4_a, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 4.minutes.ago)
-      @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_2_b = create(:fulfilled_order_item, item: @item_4, order: @order_2_b, quantity: 10, price: 10, created_at: 32.minutes.ago, updated_at: 5.minutes.ago)
+      @oi_3_a = create(:fulfilled_order_item, item: @item_1, order: @order_3_a, quantity: 10, price: 10, created_at: 16.minutes.ago, updated_at: 4.minutes.ago)
+      @oi_3_b = create(:fulfilled_order_item, item: @item_2, order: @order_3_b, quantity: 10, price: 10, created_at: 8.minutes.ago, updated_at: 3.minutes.ago)
+      @oi_4_a = create(:fulfilled_order_item, item: @item_3, order: @order_4_a, quantity: 10, price: 10, created_at: 4.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
 
-      @oi_4_b_1 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-      @oi_4_b_2 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-      @oi_4_b_3 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-      @oi_4_b_4 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-      @oi_4_b_5 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-      @oi_4_b_6 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
+      @oi_4_b_1 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+      @oi_4_b_2 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+      @oi_4_b_3 = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+      @oi_4_b_4 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+      @oi_4_b_5 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+      @oi_4_b_6 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 1.minutes.ago)
+
+      @oi_4_b_1_1 = create(:fulfilled_order_item, item: @item_3, order: @order_4_c, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_1 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_2 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_3 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_4 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_5 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+      @oi_4_b_6 = create(:fulfilled_order_item, item: @item_1, order: @order_4_b, quantity: 10, price: 10, created_at: 2.months.ago, updated_at: 1.months.ago)
+
     end
       describe 'class methods' do
         it '.top_merchants_selling_items_this_month(limit)' do
@@ -51,11 +61,10 @@ describe 'Merchant Index Page' do
           expect(User.top_merchants_selling_items_this_month(3)[0].items_sold).to eq(50)
         end
 
-        xit '.top_merchants_selling_items_last_month(limit)' do
+        it '.top_merchants_selling_items_last_month(limit)' do
 
-          expect(User.top_merchants_selling_items_last_month(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_selling_items_last_month(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_selling_items_last_month(3)[1]).to eq(@merchant_)
+          expect(User.top_merchants_selling_items_last_month(3)).to eq([@merchant_3, @merchant_2, @merchant_1])
+          expect(User.top_merchants_selling_items_last_month(3)[0].items_sold).to eq(40)
         end
 
         xit '.top_merchants_fulfilling_non_cancelled_orders_this_month(limit)' do
@@ -107,7 +116,7 @@ describe 'Merchant Index Page' do
 # Build a Merchant leaderboard available on "/merchants" that all users can see:
 # ________________________________________________________________________________
 
-# 1.  Top 10 Merchants who sold the most items this month
+# 1. Top 10 Merchants who sold the most items this month
 # -----------------------------------------------------
 # Merchants who sold the most items in a month:
 # this means the order_item was fulfilled in that month,
