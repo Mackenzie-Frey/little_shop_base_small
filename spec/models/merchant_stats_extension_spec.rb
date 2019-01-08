@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Index Page', type: :feature do
-  describe 'As a user' do
+RSpec.describe 'Merchant Index Page', type: :model do
+  describe 'As a User' do
     before :each do
       @user_1 = create(:user, city: 'Springfield', state: 'MO')
       @user_2 = create(:user, city: 'NYC', state: 'NY')
@@ -27,8 +27,10 @@ RSpec.describe 'Merchant Index Page', type: :feature do
       @order_4_a = create(:completed_order, user: @user_4)
       @order_4_b = create(:completed_order, user: @user_4)
 
+      describe 'class methods' do
+        it '.top_this_month'
 
-      it '' do
+
 
       end
   end
