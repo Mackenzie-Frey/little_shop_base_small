@@ -108,7 +108,7 @@ describe 'Merchant Index Page' do
           expect(User.top_merchants_fulfilling_non_cancelled_orders_this_month(3)).to eq([@merchant_4, @merchant_3, @merchant_2])
         end
 
-        xit '.top_merchants_fulfilling_non_cancelled_orders_last_month(limit)' do
+        it '.top_merchants_fulfilling_non_cancelled_orders_last_month(limit)' do
 
           expect(User.top_merchants_fulfilling_non_cancelled_orders_last_month(3)).to eq([@merchant_3, @merchant_2, @merchant_1])
         end
