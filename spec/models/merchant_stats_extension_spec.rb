@@ -29,6 +29,7 @@ RSpec.describe 'Merchant Index Page', type: :model do
 
       @oi_1_a = create(:fulfilled_order_item, item: @item_1, order: @order_1_a, quantity: 10, price: 10, created_at: 3.months.ago, updated_at: 2.months.ago)
       @oi_1_b = create(:fulfilled_order_item, item: @item_2, order: @order_1_b, quantity: 10, price: 10, created_at: 29.days.ago, updated_at: 27.days.ago)
+
       @oi_2_a = create(:fulfilled_order_item, item: @item_3, order: @order_2_a, quantity: 10, price: 10, created_at: 5.days.ago, updated_at: 4.days.ago)
       @oi_2_b = create(:fulfilled_order_item, item: @item_4, order: @order_2_b, quantity: 10, price: 10, created_at: 5.minutes.ago, updated_at: 32.minutes.ago)
       @oi_3_a = create(:fulfilled_order_item, item: @item_1, order: @order_3_a, quantity: 10, price: 10, created_at: 4.minutes.ago, updated_at: 16.minutes.ago)
@@ -37,7 +38,15 @@ RSpec.describe 'Merchant Index Page', type: :model do
       @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
 
       describe 'class methods' do
-        it '.top_this_month'
+        it '.top_merchants_fulfilling_orders_this_month(limit)'
+
+        expect(User.top_merchants_fulfilling_orders_this_month(3)).to eq()
+        expect(User.top_merchants_fulfilling_orders_this_month(3)[0]).to eq()
+        expect(User.top_merchants_fulfilling_orders_this_month(3)[1]).to eq()
+        expect(User.top_merchants_fulfilling_orders_this_month(3)[2]).to eq()
+      end
+
+        it '.top_merchants_fulfilling_orders_last_month'
 
 
 
@@ -45,8 +54,6 @@ RSpec.describe 'Merchant Index Page', type: :model do
   end
   end
 end
-
-# ON TRAIN - Make Test Data
 
 # Step 1:
 # Think about what each stat is looking for and get all of tests written with all of the test data.
