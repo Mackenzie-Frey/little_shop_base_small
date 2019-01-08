@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Merchant Index Page', type: :model do
   describe 'As a User' do
     before :each do
-      @user_1 = create(:user, city: 'Springfield', state: 'MO')
+      @user_1 = create(:user, city: 'Austin', state: 'TX')
       @user_2 = create(:user, city: 'NYC', state: 'NY')
-      @user_3 = create(:user, city: 'Las Vegas', state: 'NV')
-      @user_4 = create(:user, city: 'L.A.', state: 'CA')
+      @user_3 = create(:user, city: 'Denver', state: 'CO')
+      @user_4 = create(:user, city: 'Los Angeles', state: 'CA')
 
       @merchant_1 = create(:merchant, name: 'Name 1')
       @merchant_2 = create(:merchant, name: 'Name 2')
@@ -26,6 +26,15 @@ RSpec.describe 'Merchant Index Page', type: :model do
       @order_3_b = create(:completed_order, user: @user_3)
       @order_4_a = create(:completed_order, user: @user_4)
       @order_4_b = create(:completed_order, user: @user_4)
+
+      @oi_1_a = create(:fulfilled_order_item, item: @item_1, order: @order_1_a, quantity: 10, price: 10, created_at: 3.months.ago, updated_at: 2.months.ago)
+      @oi_1_b = create(:fulfilled_order_item, item: @item_2, order: @order_1_b, quantity: 10, price: 10, created_at: 29.days.ago, updated_at: 27.days.ago)
+      @oi_2_a = create(:fulfilled_order_item, item: @item_3, order: @order_2_a, quantity: 10, price: 10, created_at: 5.days.ago, updated_at: 4.days.ago)
+      @oi_2_b = create(:fulfilled_order_item, item: @item_4, order: @order_2_b, quantity: 10, price: 10, created_at: 5.minutes.ago, updated_at: 32.minutes.ago)
+      @oi_3_a = create(:fulfilled_order_item, item: @item_1, order: @order_3_a, quantity: 10, price: 10, created_at: 4.minutes.ago, updated_at: 16.minutes.ago)
+      @oi_3_b = create(:fulfilled_order_item, item: @item_2, order: @order_3_b, quantity: 10, price: 10, created_at: 3.minutes.ago, updated_at: 8.minutes.ago)
+      @oi_4_a = create(:fulfilled_order_item, item: @item_3, order: @order_4_a, quantity: 10, price: 10, created_at: 2.minutes.ago, updated_at: 4.minutes.ago)
+      @oi_4_b = create(:fulfilled_order_item, item: @item_4, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
 
       describe 'class methods' do
         it '.top_this_month'

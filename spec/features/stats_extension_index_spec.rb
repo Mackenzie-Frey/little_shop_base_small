@@ -27,7 +27,7 @@ RSpec.describe 'Merchant Index Page', type: :feature do
 
       end
     end
-    describe 'logged in as a user' do
+    describe 'LOGGED IN AS A USER' do
       it 'top 5 merchants who have fulfilled items the fastest to my STATE' do
 
         visit merchants_path
@@ -39,7 +39,6 @@ RSpec.describe 'Merchant Index Page', type: :feature do
         visit merchants_path
 
       end
-
     end
   end
 end
