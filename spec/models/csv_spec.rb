@@ -66,7 +66,7 @@ describe 'As a Merchant visiting the dashboard' do
 
     describe 'with name, email, money spent with other merchants, # of total orders' do
      describe 'for all new - active users, without orders from current merchant' do
-         it '.new_users' do
+         it '.new_users(previous_purchasers)' do
            merchant_3 = create(:merchant)
            merchant_4 = create(:merchant)
            merchant_5 = create(:merchant)
@@ -85,10 +85,9 @@ describe 'As a Merchant visiting the dashboard' do
            order_item_5 = create(:fulfilled_order_item, order: order_7, item: item_3, price: 5, quantity: 10)
            order_item_6 = create(:fulfilled_order_item, order: order_8, item: item_4, price: 10, quantity: 10)
 
-
-           expect(merchant_3.new_users).to eq([user_5, user_6])
-           expect(merchant_4.new_users).to eq([user_4, user_6])
-           expect(merchant_5.new_users).to eq([user_4, user_5, user_6])
+           expect(merchant_3.new_users(merchant_3.existing_users_by_id)).to eq([user_5, user_6])
+           expect(merchant_4.new_users(merchant_4.existing_users_by_id)).to eq([user_4, user_6])
+           expect(merchant_5.new_users(merchant_5.existing_users_by_id)).to eq([user_4, user_5, user_6])
          end
 
          it '.count' do

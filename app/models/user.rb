@@ -141,30 +141,27 @@ class User < ApplicationRecord
       .sum('order_items.quantity * order_items.price')
   end
 
-# All active users who have never ordered from them
-# All users, with orders, who have never ordered from them
-  def new_users
-    # binding.pry
-    User.joins(:orders, :order_items)
+  def existing_users_by_id
+    User
+    .joins(:orders, :order_items)
     .joins('join items on order_items.item_id=items.id')
     .where(role: "default")
     .where(active: true)
-    .where("items.merchant_id != ?", id)
+    .where("items.merchant_id = ?", id)
     .where("order_items.fulfilled = true")
     .group(:id)
+    .pluck(:id)
+  end
+
+# All active users who have never ordered from them
+  def new_users(previous_purchasers_id)
+    User
+    .where(active: true)
+    .where(role: "default")
+    .where.not(id: previous_purchasers_id)
     .order(name: :asc)
   end
 
-
-  # def previous_buyers
-  #   User
-  #     .joins(:orders)
-  #     .joins('join order_items on orders.id=order_items.order_id')
-  #     .joins('join items on order_items.item_id=items.id')
-  #     .where(active: true)
-  #     .where('items.user_id = ?', id)
-  #     .group(:id)
-  # end
 
 
 end
