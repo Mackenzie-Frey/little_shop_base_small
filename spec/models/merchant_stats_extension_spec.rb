@@ -43,12 +43,12 @@ describe 'Merchant Index Page' do
       @oi_4_b_4 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
       @oi_4_b_5 = create(:fulfilled_order_item, item: @item_3, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
       @oi_4_b_6 = create(:fulfilled_order_item, item: @item_2, order: @order_4_b, quantity: 10, price: 10, created_at: 1.minutes.ago, updated_at: 2.minutes.ago)
-end
+    end
       describe 'class methods' do
         it '.top_merchants_selling_items_this_month(limit)' do
 
           expect(User.top_merchants_selling_items_this_month(3)).to eq([@merchant_4, @merchant_3, @merchant_2])
-          expect(User.top_merchants_fulfilled_orders_this_month(3)[0].order_items.count).to eq(5)
+          expect(User.top_merchants_selling_items_this_month(3)[0].items_sold).to eq(50)
         end
 
         xit '.top_merchants_selling_items_last_month(limit)' do
@@ -102,11 +102,6 @@ end
 # Step 2:
 # Start with Model Test
 # Go line by line to see what I have
-# Can use Ian's code as a launching spot
-# Might need to join all 4 tables (might not be a standard joins)
-
-# How to set local time? Or will I pass in the month?
-
 
 # ________________________________________________________________________________
 # Build a Merchant leaderboard available on "/merchants" that all users can see:
@@ -120,7 +115,6 @@ end
 # a sum of quantities within the merchant’s order_items.
 # “Month” is a calendar month. So right now in January,
 # there would only be three days to look at.
-
 
 # 2. Top 10 Merchants who sold the most items last month
 # ------------------------------------------------------
