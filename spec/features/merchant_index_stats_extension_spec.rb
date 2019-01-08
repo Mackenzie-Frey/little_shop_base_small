@@ -2,12 +2,40 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Index Page', type: :feature do
   describe 'As a user' do
-    it '' do
+    before :each do
+      @user_1 = create(:user, city: 'Springfield', state: 'MO')
+      @user_2 = create(:user, city: 'NYC', state: 'NY')
+      @user_3 = create(:user, city: 'Las Vegas', state: 'NV')
+      @user_4 = create(:user, city: 'L.A.', state: 'CA')
 
-    end
+      @merchant_1 = create(:merchant, name: 'Name 1')
+      @merchant_2 = create(:merchant, name: 'Name 2')
+      @merchant_3 = create(:merchant, name: 'Name 3')
+      @merchant_4 = create(:merchant, name: 'Name 4')
+
+      @item_1 = create(:item, user: @merchant_1)
+      @item_2 = create(:item, user: @merchant_2)
+      @item_3 = create(:item, user: @merchant_3)
+      @item_4 = create(:item, user: @merchant_4)
+
+      @order_1_a = create(:completed_order, user: @user_1)
+      @order_1_b = create(:completed_order, user: @user_1)
+      @order_2_a = create(:completed_order, user: @user_2)
+      @order_2_b = create(:completed_order, user: @user_2)
+      @order_3_a = create(:completed_order, user: @user_3)
+      @order_3_b = create(:completed_order, user: @user_3)
+      @order_4_a = create(:completed_order, user: @user_4)
+      @order_4_b = create(:completed_order, user: @user_4)
+
+
+      it '' do
+
+      end
+  end
   end
 end
 
+# ON TRAIN - Make Test Data
 
 # Step 1:
 # Think about what each stat is looking for and get all of tests written with all of the test data.
@@ -24,10 +52,12 @@ end
   #   @top_10_merchants_fulfilled_orders_last_month = User.top_merchants_fulfilled_orders_last_month(10)
 
 # Step 2:
+# Start with Model Test
 # Go line by line to see what I have
 # Can use Ian's code as a launching spot
 # Might need to join all 4 tables (might not be a standard joins)
 
+# How to set local time? Or will I pass in the month?
 
 
 # ________________________________________________________________________________
