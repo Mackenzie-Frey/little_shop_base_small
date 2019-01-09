@@ -210,16 +210,24 @@ class User < ApplicationRecord
   end
 
   def top_merchants_fulfilling_fastest_orders_my_state(limit)
+    binding.pry
     User
     .joins(:items, {items: :order_items})
     .joins('INNER JOIN orders ON order_items.order_id = orders.id')
-    .where(abs(order_items.updated_at - order_items.created_at) to integer as fulfillment_speed)
-    .where('item.merchant.state = ?', self.state)
-    .order(fulfillment_speed)
+    .select('users.*, avg(order_items.updated_at - order_items.created_at) as avg_fulfillment_time').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where('orders.status = ?', 1)
+    .where('items.users.state = ?', self.state)
+    .order('avg_fulfillment_time DESC')
     .limit(limit)
   end
 
+  # .where('order_items.items.users.state = ?', self.state)
+  #.group(:id) or other things
+  # .select('users.state, items.merchant_id as merchant_id, avg(order_items.updated_at - order_items.created_at) as avg_fulfillment_time')
   def top_merchants_fulfilling_fastest_orders_my_city(limit)
 
   end
 end
+
+User.joins("INNER JOIN orders on orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")

@@ -8,10 +8,10 @@ describe 'Merchant Index Page' do
       @user_3 = create(:user, city: 'Denver', state: 'CO')
       @user_4 = create(:user, city: 'Los Angeles', state: 'CA')
 
-      @merchant_1 = create(:merchant, name: 'Name 1')
-      @merchant_2 = create(:merchant, name: 'Name 2')
-      @merchant_3 = create(:merchant, name: 'Name 3')
-      @merchant_4 = create(:merchant, name: 'Name 4')
+      @merchant_1 = create(:merchant, name: 'Name 1', state: 'CA', city: "Los Angeles")
+      @merchant_2 = create(:merchant, name: 'Name 2', state: 'CA', city: "Los Angeles")
+      @merchant_3 = create(:merchant, name: 'Name 3', state: 'CA', city: "San Diego")
+      @merchant_4 = create(:merchant, name: 'Name 4', state: 'CO', city: "Denver")
 
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_2)
@@ -113,20 +113,16 @@ describe 'Merchant Index Page' do
           expect(User.top_merchants_fulfilling_non_cancelled_orders_last_month(3)).to eq([@merchant_3, @merchant_2, @merchant_1])
         end
       end
-      
+
       describe 'instance methods' do
         it '.top_merchants_fulfilling_fastest_orders_my_state(limit)' do
 
           expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)[0]).to eq(@merchant_)
-          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)[1]).to eq(@merchant_)
         end
 
         xit '.top_merchants_fulfilling_fastest_orders_my_city(limit)' do
 
           expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)[0]).to eq(@merchant_)
-          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)[1]).to eq(@merchant_)
         end
       end
     end
