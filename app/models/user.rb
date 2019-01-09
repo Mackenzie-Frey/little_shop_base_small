@@ -210,7 +210,13 @@ class User < ApplicationRecord
   end
 
   def top_merchants_fulfilling_fastest_orders_my_state(limit)
-
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .where(abs(order_items.updated_at - order_items.created_at) to integer as fulfillment_speed)
+    .where('item.merchant.state = ?', self.state)
+    .order(fulfillment_speed)
+    .limit(limit)
   end
 
   def top_merchants_fulfilling_fastest_orders_my_city(limit)

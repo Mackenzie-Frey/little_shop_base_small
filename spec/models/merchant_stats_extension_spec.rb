@@ -113,6 +113,7 @@ describe 'Merchant Index Page' do
           expect(User.top_merchants_fulfilling_non_cancelled_orders_last_month(3)).to eq([@merchant_3, @merchant_2, @merchant_1])
         end
       end
+      
       describe 'instance methods' do
         it '.top_merchants_fulfilling_fastest_orders_my_state(limit)' do
 
