@@ -160,4 +160,77 @@ class User < ApplicationRecord
     .where.not(id: previous_purchasers_id)
     .order(name: :asc)
   end
+
+  def self.top_merchants_selling_items_this_month(limit)
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .select('users.*, sum(order_items.quantity) as items_sold').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where('orders.status = ?', 1)
+    .where('EXTRACT(MONTH FROM order_items.updated_at) = ?', Time.now.month)
+    .order('items_sold DESC')
+    .limit(limit)
+  end
+
+  def self.top_merchants_selling_items_last_month(limit)
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .select('users.*, sum(order_items.quantity) as items_sold').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where('orders.status = ?', 1)
+    .where('EXTRACT(MONTH FROM order_items.updated_at) = ?', 1.month.ago.month)
+    .order('items_sold DESC')
+    .limit(limit)
+  end
+
+  def self.top_merchants_fulfilling_non_cancelled_orders_this_month(limit)
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .select('users.*, sum(order_items.quantity) as items_sold').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where.not('orders.status = ?', 2)
+    .where('EXTRACT(MONTH FROM order_items.updated_at) = ?', Time.now.month)
+    .order('items_sold DESC')
+    .limit(limit)
+  end
+
+  def self.top_merchants_fulfilling_non_cancelled_orders_last_month(limit)
+    User
+    .joins(:items, {items: :order_items})
+    .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    .select('users.*, sum(order_items.quantity) as items_sold').group(:id)
+    .where('order_items.fulfilled = ?', true)
+    .where.not('orders.status = ?', 2)
+    .where('EXTRACT(MONTH FROM order_items.updated_at) = ?', 1.month.ago.month)
+    .order('items_sold DESC')
+    .limit(limit)
+  end
+
+  def top_merchants_fulfilling_fastest_orders_my_state(limit)
+    # User
+    # .joins(:items, {items: :order_items})
+    # .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    # .select('users.*, avg(order_items.updated_at - order_items.created_at) as avg_fulfillment_time').group(:id)
+    # .where('order_items.fulfilled = ?', true)
+    # .where('orders.status = ?', 1)
+    # .where('users.state = ?', self.state)
+    # .order('avg_fulfillment_time DESC')
+    # .limit(limit)
+  end
+
+  def top_merchants_fulfilling_fastest_orders_my_city(limit)
+    # User
+    # .joins(:items, {items: :order_items})
+    # .joins('INNER JOIN orders ON order_items.order_id = orders.id')
+    # .select('users.*, avg(order_items.updated_at - order_items.created_at) as avg_fulfillment_time').group(:id)
+    # .where('order_items.fulfilled = ?', true)
+    # .where('orders.status = ?', 1)
+    # .where('users.state = ?', self.state)
+    # .where('users.city = ?', self.city)
+    # .order('avg_fulfillment_time DESC')
+    # .limit(limit)
+  end
 end
