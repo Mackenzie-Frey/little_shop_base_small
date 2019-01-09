@@ -112,35 +112,24 @@ describe 'Merchant Index Page' do
 
           expect(User.top_merchants_fulfilling_non_cancelled_orders_last_month(3)).to eq([@merchant_3, @merchant_2, @merchant_1])
         end
+      end
+      describe 'instance methods' do
+        it '.top_merchants_fulfilling_fastest_orders_my_state(limit)' do
 
-        xit '.top_merchants_fulfilling_fastest_orders_my_state(limit)' do
-
-          expect(User.top_merchants_fulfilling_fastest_orders_my_state(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_fulfilling_fastest_orders_my_state(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_fastest_orders_my_state(3)[1]).to eq(@merchant_)
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)).to eq([@merchant_, @merchant_, @merchant_])
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)[0]).to eq(@merchant_)
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_state(3)[1]).to eq(@merchant_)
         end
 
         xit '.top_merchants_fulfilling_fastest_orders_my_city(limit)' do
 
-          expect(User.top_merchants_fulfilling_fastest_orders_my_city(3)).to eq([@merchant_, @merchant_, @merchant_])
-          expect(User.top_merchants_fulfilling_fastest_orders_my_city(3)[0]).to eq(@merchant_)
-          expect(User.top_merchants_fulfilling_fastest_orders_my_city(3)[1]).to eq(@merchant_)
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)).to eq([@merchant_, @merchant_, @merchant_])
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)[0]).to eq(@merchant_)
+          expect(@user_4.top_merchants_fulfilling_fastest_orders_my_city(3)[1]).to eq(@merchant_)
         end
       end
+    end
   end
-  end
-
-# 3. Top 10 Merchants who fulfilled non-cancelled orders this month
-# -----------------------------------------------------------
-# Merchants who fulfilled non-cancelled orders:
-# this means the merchants fulfilled their items AND
-# the order status is not ‘cancelled’, but pending/completed
-# orders are fine, if you filter out merchants who have
-# un-fulfilled items in any order then that will satisfy
-# everything
-
-# 4. Top 10 Merchants who fulfilled non-cancelled orders last month
-# ----------------------------------------------------------
 
 # WHEN LOGGED IN AS ONLY A USER !!!!!!!!!!!
 # __________________________________________________________________________________

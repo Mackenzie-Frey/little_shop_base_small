@@ -209,9 +209,11 @@ class User < ApplicationRecord
     .limit(limit)
   end
 
-  def self.top_merchants_fulfilling_fastest_orders_my_state(limit)
+  def top_merchants_fulfilling_fastest_orders_my_state(limit)
+
   end
 
-  def self.top_merchants_fulfilling_fastest_orders_my_city(limit)
+  def top_merchants_fulfilling_fastest_orders_my_city(limit)
+
   end
 end
